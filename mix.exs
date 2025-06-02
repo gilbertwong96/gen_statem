@@ -13,7 +13,15 @@ defmodule GenStatem.MixProject do
       deps: deps(),
       description: description(),
       package: package(),
-      source_url: "https://github.com/gilbertwong96/ex_gen_statem",
+      source_url: "https://github.com/gilbertwong96/gen_statem",
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test,
+        "coveralls.cobertura": :test
+      ],
       docs: [
         main: "GenStatem",
         extras: ["README.md"],
@@ -37,7 +45,8 @@ defmodule GenStatem.MixProject do
       {:dialyxir, "~> 1.4", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
-      {:mix_test_watch, "~> 1.2", only: [:dev, :test], runtime: false}
+      {:mix_test_watch, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.16", only: :test}
     ]
   end
 

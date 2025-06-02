@@ -1774,6 +1774,7 @@ defmodule GenStatem do
           id: __MODULE__,
           start: {__MODULE__, :start_link, [init_args]}
         }
+
         Supervisor.child_spec(default, unquote(Macro.escape(opts)))
       end
 
