@@ -51,8 +51,11 @@ defmodule GenStatem.MixProject do
       maintainers: ["Gilbert Wong"],
       licenses: ["Apache 2.0"],
       links: %{
-        "GitHub" => "https://github.com/gilbertwong96/gen_statem"
-      }
+        "GitHub" => "https://github.com/gilbertwong96/gen_statem",
+        "Changelog" => "https://github.com/gilbertwong96/gen_statem/blob/main/CHANGELOG.md",
+        "Issues" => "https://github.com/gilbertwong96/gen_statem/issues"
+      },
+      description: "An Elixir implementation of gen_statem with enhanced features and ergonomics"
     ]
   end
 

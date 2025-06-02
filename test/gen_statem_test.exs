@@ -53,7 +53,7 @@ defmodule GenStatemTest do
     end
 
     defp handle_event({:call, from}, :get_count, data) do
-      {:keep_state, data,[{:reply, from, data}]}
+      {:keep_state, data, [{:reply, from, data}]}
     end
 
     defp handle_event(_event_type, _event_content, data) do
@@ -145,7 +145,9 @@ defmodule GenStatemTest do
     assert response == :off
 
     req_id_col = GenStatem.send_request(pid, :push) |> GenStatem.reqids_add(label, req_id_col)
-    {{:reply, response}, ^module, req_id_col} = GenStatem.receive_response(req_id_col, 5_000, false)
+
+    {{:reply, response}, ^module, req_id_col} =
+      GenStatem.receive_response(req_id_col, 5_000, false)
 
     assert GenStatem.reqids_size(req_id_col) == 1
     [{req_id, label}] = GenStatem.reqids_to_list(req_id_col)
@@ -156,10 +158,11 @@ defmodule GenStatemTest do
 
     assert_raise GenError, fn -> GenStatem.receive_response(request_id, :invalid_timeout) end
 
-    assert_raise GenError, fn -> GenStatem.receive_response(req_id_col, :invalid_timeout, false) end
+    assert_raise GenError, fn ->
+      GenStatem.receive_response(req_id_col, :invalid_timeout, false)
+    end
 
     assert_raise ArgumentError, fn -> GenStatem.start(module, [], name: {:invalid_name, nil}) end
-
   end
 
   test "state_functions: start_monitor/2,3, send_request/2,4 and check_response/2,3" do
@@ -168,6 +171,7 @@ defmodule GenStatemTest do
     {:ok, {pid, _mon_ref}} = GenStatem.start_monitor(module, [], name: name)
 
     request_id = GenStatem.send_request(pid, :push)
+
     receive do
       msg -> assert GenStatem.check_response(msg, request_id) == {:reply, :on}
     end
@@ -181,16 +185,19 @@ defmodule GenStatemTest do
       msg ->
         {{:reply, response}, ^module, req_id_col} =
           GenStatem.check_response(msg, req_id_col, true)
+
         assert GenStatem.reqids_size(req_id_col) == 0
         assert response == :off
     end
 
     req_id_col = GenStatem.reqids_new()
     req_id_col = GenStatem.send_request(pid, :push) |> GenStatem.reqids_add(label, req_id_col)
+
     receive do
       msg ->
         {{:reply, response}, ^module, req_id_col} =
           GenStatem.check_response(msg, req_id_col, false)
+
         assert GenStatem.reqids_size(req_id_col) == 1
         assert response == :on
     end
@@ -198,6 +205,7 @@ defmodule GenStatemTest do
     assert GenStatem.stop(pid) == :ok
 
     assert_raise GenError, fn -> GenStatem.check_response(:msg, :invalid_req_id) end
+
     assert_raise GenError, fn ->
       GenStatem.check_response(:msg, :invalid_req_id_col, true)
     end
@@ -208,11 +216,10 @@ defmodule GenStatemTest do
 
   defmodule CustomChildSpec do
     use GenStatem,
-        id: :id,
-        restart: :temporary,
-        shutdown: :infinity,
-        start: {HandleEventFuncPushButton, :start_link,
-                [HandleEventFuncPushButton, []]}
+      id: :id,
+      restart: :temporary,
+      shutdown: :infinity,
+      start: {HandleEventFuncPushButton, :start_link, [HandleEventFuncPushButton, []]}
   end
 
   test "child_spec" do
@@ -225,8 +232,7 @@ defmodule GenStatemTest do
              id: :id,
              restart: :temporary,
              shutdown: :infinity,
-             start: {HandleEventFuncPushButton, :start_link,
-                     [HandleEventFuncPushButton, []]}
+             start: {HandleEventFuncPushButton, :start_link, [HandleEventFuncPushButton, []]}
            }
   end
 end
