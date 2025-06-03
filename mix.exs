@@ -20,7 +20,7 @@ defmodule GenStatem.MixProject do
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test,
-        "coveralls.cobertura": :test
+        "coveralls.github": :test
       ],
       docs: [
         main: "GenStatem",
@@ -46,7 +46,7 @@ defmodule GenStatem.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
       {:mix_test_watch, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.16", only: :test}
+      {:excoveralls, "~> 0.18", only: :test}
     ]
   end
 

@@ -29,5 +29,17 @@ jobs:
       - name: Run CI Check
         run: mix ci
 
-      - name: Run Coveralls
-        run: mix coveralls
+      - name: Run Tests with Coverage
+        run: mix coveralls.html
+
+      - name: Upload Coverage to Coveralls
+        if: github.event_name == 'push'
+        run: mix coveralls.github
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Archive Coverage HTML
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: cover/excoveralls.html

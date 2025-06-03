@@ -1,5 +1,7 @@
 # GenStatem
 
+[![Coverage Status](https://coveralls.io/repos/github/gilbertwong96/gen_statem/badge.svg?branch=main)](https://coveralls.io/github/gilbertwong96/gen_statem?branch=main)[![Build Status](https://github.com/phoenixframework/phoenix/workflows/CI/badge.svg)](https://github.com/gilbertwong96/gen_statem/actions/workflows/ci.yml) [![Hex.pm](https://img.shields.io/hexpm/v/phoenix.svg)](https://hex.pm/packages/gen_statem) [![Documentation](https://img.shields.io/badge/documentation-gray)](https://hexdocs.pm/gen_statem)
+
 An Elixir implementation of the `gen_statem` behavior from Erlang/OTP.
 
 ## Features
