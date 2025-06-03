@@ -34,31 +34,31 @@ defmodule GenStatem do
   and the callback functions is as follows:
 
   ```
-  GenStatem module            Callback module
-  -----------------            ---------------
+  GenStatem module               Callback module
+  -----------------              ---------------
   GenStatem.start
   GenStatem.start_monitor
-  GenStatem.start_link -----> Module.init/1
+  GenStatem.start_link    -----> Module.init/1
 
   Server start or code change
-                        -----> Module.callback_mode/0
-                        selects callback mode
+                          -----> Module.callback_mode/0
+                          selects callback mode
 
   GenStatem.stop
   Supervisor exit
-  Callback failure      -----> Module.terminate/3
+  Callback failure        -----> Module.terminate/3
 
   GenStatem.call
   GenStatem.cast
   GenStatem.send_request
-  erlang.send
-  erlang.'!'            -----> Module.state_name/3
-                     or -----> Module.handle_event/4
-                     depending on callback mode
+  :erlang.send
+  :erlang.'!'             -----> Module.state_name/3
+                       or -----> Module.handle_event/4
+                       depending on callback mode
 
   Release upgrade/downgrade
   (code change)
-                        -----> Module.code_change/4
+                          -----> Module.code_change/4
   ```
 
   # State callback {: #state-callback }
@@ -195,10 +195,10 @@ defmodule GenStatem do
   [`throw`](`:erlang.throw/1`) is not regarded as an error
   but as a valid return, from all callback functions.
 
-  # System messages and the `m:sys` module
+  # System messages and the [`:sys`](`:sys`) module
 
-  A `GenStatem` handles system messages as described in `m:sys`.
-  The `m:sys` module can be used for debugging a `GenStatem`.
+  A `GenStatem` handles system messages as described in [`:sys`](`:sys`).
+  The [`:sys`](`:sys`) module can be used for debugging a `GenStatem`.
   Replies sent through [_transition actions_](`t:action/0`)
   gets logged, but not replies sent through [`reply/1,2`](`reply/2`).
 
@@ -2373,7 +2373,7 @@ defmodule GenStatem do
 
   > #### Note {: .info }
   >
-  > A reply sent with this function is not visible in `m:sys` debug output.
+  > A reply sent with this function is not visible in [`:sys`](`:sys`) debug output.
   """
   def reqids_to_list(req_id_collection) do
     :gen.reqids_to_list(req_id_collection)
@@ -2397,7 +2397,7 @@ defmodule GenStatem do
 
   > #### Note {: .info }
   >
-  > A reply sent with this function is not visible in `m:sys` debug output.
+  > A reply sent with this function is not visible in [`:sys`](`:sys`) debug output.
   """
   @spec reply(replies :: [reply_action()] | reply_action()) :: :ok
   def reply({:reply, from, reply}) do
@@ -2418,7 +2418,7 @@ defmodule GenStatem do
 
   > #### Note {: .info }
   >
-  > A reply sent with this function is not visible in `m:sys` debug output.
+  > A reply sent with this function is not visible in [`:sys`](`:sys`) debug output.
   """
   @spec reply(from :: from(), reply :: term()) :: :ok
   def reply(from, reply), do: :gen.reply(from, reply)

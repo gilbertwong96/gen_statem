@@ -58,7 +58,7 @@ defmodule GenStatem.MixProject do
     [
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Gilbert Wong"],
-      licenses: ["Apache 2.0"],
+      licenses: ["Apache-2.0"],
       links: %{
         "GitHub" => "https://github.com/gilbertwong96/gen_statem",
         "Changelog" => "https://github.com/gilbertwong96/gen_statem/blob/main/CHANGELOG.md",
